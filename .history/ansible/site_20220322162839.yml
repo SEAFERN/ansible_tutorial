@@ -1,6 +1,6 @@
 ---
 - hosts: rails
-  remote_user: vagrant
+  remote_user: root
   become: yes
   tasks:
     - name: Update all packages to the latest version
@@ -20,7 +20,6 @@
       apt:
         name: "{{ item }}"
       with_items:
-        - acl #TBL: Ubuntu 20.04
         - gcc
         - autoconf
         - bison

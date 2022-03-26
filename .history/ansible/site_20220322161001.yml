@@ -20,7 +20,6 @@
       apt:
         name: "{{ item }}"
       with_items:
-        - acl #TBL: Ubuntu 20.04
         - gcc
         - autoconf
         - bison
@@ -31,7 +30,7 @@
         - zlib1g-dev
         - libncurses5-dev
         - libffi-dev
-        #- libgdbm5 #TBL Ubuntu 18.04 only. libgdbm3 for 16.xx
+        - libgdbm3
         - libgdbm-dev
         - sqlite3
         - libsqlite3-dev
@@ -40,17 +39,17 @@
       become: no
       get_url:
         url: https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz
-        dest: /home/vagrant/ruby-install-0.6.1.tar.gz
+        dest: /home/ubuntu/ruby-install-0.6.1.tar.gz
     - name: Extract ruby-install tarball
       become: no
       unarchive:
-        src: /home/vagrant/ruby-install-0.6.1.tar.gz
-        dest: /home/vagrant
-        creates: /home/vagrant/ruby-install-0.6.1
+        src: /home/ubuntu/ruby-install-0.6.1.tar.gz
+        dest: /home/ubuntu
+        creates: /home/ubuntu/ruby-install-0.6.1
         remote_src: yes
     - name: Install ruby-install
       make:
-        chdir: /home/vagrant/ruby-install-0.6.1
+        chdir: /home/ubuntu/ruby-install-0.6.1
         target: install
     - name: Install Ruby
       become_user: deploy
@@ -61,17 +60,17 @@
       become: no
       get_url:
         url: https://github.com/postmodern/chruby/archive/v0.3.9.tar.gz
-        dest: /home/vagrant/chruby-0.3.9.tar.gz
+        dest: /home/ubuntu/chruby-0.3.9.tar.gz
     - name: Extract chruby tarball
       become: no
       unarchive:
-        src: /home/vagrant/chruby-0.3.9.tar.gz
-        dest: /home/vagrant
-        creates: /home/vagrant/chruby-0.3.9
+        src: /home/ubuntu/chruby-0.3.9.tar.gz
+        dest: /home/ubuntu
+        creates: /home/ubuntu/chruby-0.3.9
         remote_src: yes
     - name: Install chruby
       make:
-        chdir: /home/vagrant/chruby-0.3.9
+        chdir: /home/ubuntu/chruby-0.3.9
         target: install
     - name: Load chruby for deploy user
       lineinfile:

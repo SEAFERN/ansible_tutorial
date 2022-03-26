@@ -20,7 +20,6 @@
       apt:
         name: "{{ item }}"
       with_items:
-        - acl #TBL: Ubuntu 20.04
         - gcc
         - autoconf
         - bison
